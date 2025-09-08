@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom"; // Import Link for SPA navigation
 import Navbar from '../components/Navbar';
 import './AuthForm.css'; // Import our new custom styles
-//bhosdo
+//bhosdo bhaNG
 export default function Login() {
   // Switched from useRef to useState for controlled form inputs
   const [email, setEmail] = useState("");
