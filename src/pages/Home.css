@@ -1,0 +1,54 @@
+/* Home.css */
+.home-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #4F46E5, #EC4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.floating-card {
+  background: white;
+  border-radius: 20px;
+  transform: perspective(1000px) rotateY(-10deg);
+  transition: transform 0.3s ease;
+}
+
+.floating-card:hover {
+  transform: perspective(1000px) rotateY(0deg);
+}
+
+.feature-card {
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-buttons {
+    flex-direction: column;
+    gap: 10px !important;
+  }
+  
+  .hero-buttons .btn {
+    width: 100%;
+  }
+  
+  .floating-card {
+    margin-top: 2rem;
+    transform: none;
+  }
+}
