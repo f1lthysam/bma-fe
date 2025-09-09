@@ -1,94 +1,108 @@
-import { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom'; // Remove BrowserRouter import
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Dashboard from './pages/Dashboard';
-import About from './pages/About';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import './App.css';
+// src/App.js
+import React, { useState } from "react";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import About from "./pages/About";
+import "./App.css";
 
 function App() {
-  const [activeTab, setActiveTab] = useState('home');
+  const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
+
+  // This function will be passed to the Login component
+  const handleLogin = (userData) => {
+    setCurrentUser(userData);
+    console.log("User logged in:", userData);
+  };
+
+  // This function will be used by a Logout button
+  const handleLogout = () => {
+    setCurrentUser(null);
+    navigate("/login"); // Redirect to login after logout
+  };
 
   return (
     <div className="App">
-      {/* Navigation Bar */}
+      {/* --- DYNAMIC NAVIGATION BAR --- */}
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div className="container">
-          <div className="nav-logo">
+          <Link to="/" className="navbar-brand">
             <span>🔖</span> BookmarkHub
-          </div>
-          <button 
-            className="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse" 
+          </Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <Link
-                  to="/"
-                  className={activeTab === 'home' ? 'nav-link active' : 'nav-link'}
-                  onClick={() => setActiveTab('home')}
-                >
+                <Link to="/" className="nav-link">
                   Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link
-                  to="/dashboard"
-                  className={activeTab === 'dashboard' ? 'nav-link active' : 'nav-link'}
-                  onClick={() => setActiveTab('dashboard')}
-                >
-                  Dashboard
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to="/about"
-                  className={activeTab === 'about' ? 'nav-link active' : 'nav-link'}
-                  onClick={() => setActiveTab('about')}
-                >
+                <Link to="/about" className="nav-link">
                   About Us
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link
-                  to="/login"
-                  className={activeTab === 'login' ? 'nav-link active' : 'nav-link'}
-                  onClick={() => setActiveTab('login')}
-                >
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to="/signup"
-                  className={activeTab === 'signup' ? 'nav-link active' : 'nav-link'}
-                  onClick={() => setActiveTab('signup')}
-                >
-                  Sign Up
-                </Link>
-              </li>
+
+              {/* --- Conditional Links based on login state --- */}
+              {currentUser ? (
+                <>
+                  <li className="nav-item">
+                    <Link to="/dashboard" className="nav-link">
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <button
+                      onClick={handleLogout}
+                      className="btn btn-link nav-link"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link to="/login" className="nav-link">
+                      Login
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/signup" className="nav-link">
+                      Sign Up
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
       </nav>
 
+      {/* --- PROTECTED ROUTES --- */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
+
+        {/* Pass the handleLogin function to the Login component */}
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/signup" element={<Signup />} />
+
+        {/* Protect the dashboard route */}
+        <Route
+          path="/dashboard"
+          element={currentUser ? <Dashboard user={currentUser} /> : <Home />}
+        />
       </Routes>
     </div>
   );
