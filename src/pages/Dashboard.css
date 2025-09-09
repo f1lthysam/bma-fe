@@ -1,0 +1,353 @@
+/* src/pages/Dashboard.css (Definitive, Corrected, and Complete Version) */
+
+.dashboard-container {
+  padding-bottom: 100px;
+  position: relative;
+}
+
+.dashboard-header-title {
+  font-size: 1.25rem; font-weight: 600; color: #555; white-space: nowrap;
+}
+
+hr {
+  border-top: 1px solid #e0e0e0;
+}
+
+.search-input {
+  border-radius: 8px; border: 1px solid #e0e0e0; padding: 0.75rem 1rem;
+}
+
+.search-input:focus {
+  border-color: #764ba2; box-shadow: 0 0 0 0.25rem rgba(118, 75, 162, 0.25);
+}
+
+.vault-card {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex; /* Remove centering to allow for absolute positioning of children */
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 16px;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  color: #343a40;
+  position: relative; /* Crucial for positioning and layering */
+}
+
+.vault-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #764ba2;
+  z-index: 2; /* Lifts the card on top of its siblings, fixing the dropdown overlap */
+}
+
+/* This new wrapper handles the centering of the icon and name */
+.vault-card-content,
+.vault-card-content-mobile {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.vault-icon {
+  margin-bottom: 0.75rem;
+}
+
+.vault-icon svg,
+.vault-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.vault-name {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.vault-card-dashed {
+  justify-content: center; /* Dashed button still needs direct centering */
+  align-items: center;
+  background-color: transparent;
+  border: 2px dashed #ced4da;
+  color: #6c757d;
+}
+
+.vault-card-dashed:hover {
+  border-color: #764ba2;
+  color: #764ba2;
+}
+
+.notes-icon-wrapper img {
+  width: 45px;
+  height: 55px;
+}
+
+.add-icon-wrapper img {
+  width: 35px;
+  height: 35px;
+}
+
+.floating-add-btn {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 70px;
+  height: 70px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none; display: flex; justify-content: center; align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); cursor: pointer; z-index: 1000;
+  transition: transform 0.2s ease-in-out;
+}
+
+.floating-add-btn:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
+.floating-add-btn img {
+  width: 32px;
+  height: 32px;
+}
+
+.mismatch-alert p {
+  font-size: 0.9rem; margin-bottom: 0;
+}
+
+.mismatch-alert hr {
+  margin-top: 0.75rem; margin-bottom: 0.75rem;
+}
+
+/* The definitive fix for the desktop dropdown menu */
+.vault-options-dropdown {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 3; /* Ensures menu is on top of all card content */
+}
+
+.vault-options-dropdown .dropdown-toggle::after {
+  display: none;
+}
+
+.vault-options-dropdown svg {
+  width: 20px;
+  height: 20px;
+  fill: #343a40; /* Black color for dots */
+}
+
+.vault-custom-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Fix for the long scrolling dropdown in the "Add Vault" modal */
+.identifier-dropdown-menu {
+  /* 1. Force a solid, non-transparent background */
+  background-color: white !important;
+  
+  /* 2. Add a standard border to ensure crisp edges */
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  
+  /* 3. THIS IS THE MOST CRITICAL FIX:
+     It forces the rounded corners to clip any content inside,
+     preventing the scrollbar from appearing on a transparent background. */
+  overflow: hidden;
+  
+  /* 4. We keep this to ensure the menu itself does not have a scrollbar */
+  padding-bottom: 0.5rem; /* Add some padding at the bottom */
+}
+
+.identifier-icon-mini svg,
+.identifier-icon-mini img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* Styles for the mobile inline actions */
+.vault-actions-mobile {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.vault-action-btn {
+  background: none; border: none; padding: 0.5rem; color: #343a40;
+  font-size: 0.9rem; font-weight: 500;
+}
+.vault-action-btn.delete {
+  color: #dc3545;
+}
+.vault-action-btn svg {
+  width: 16px;
+  height: 16px;
+}
+.action-divider {
+  color: #dee2e6;
+}
+
+/* --- MOBILE RESPONSIVENESS (Single, Consolidated Block) --- */
+@media (max-width: 767px) {
+  .vault-card {
+    aspect-ratio: auto;
+    height: 70px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+  .vault-card-content-mobile {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 20px;
+  }
+  .vault-icon {
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+  .vault-icon svg,
+  .vault-icon img,
+  .vault-custom-img {
+    width: 28px;
+    height: 28px;
+  }
+  .vault-name {
+    font-size: 1rem;
+  }
+  .notes-icon-wrapper img {
+    width: 24px;
+    height: 32px;
+  }
+  .add-icon-wrapper img {
+    width: 24px;
+    height: 24px;
+  }
+  .floating-add-btn {
+    width: 55px;
+    height: 55px;
+    bottom: 20px;
+  }
+  .floating-add-btn img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+
+/* --- CSS FIXES FOR DESKTOP DROPDOWN --- */
+
+/* 1. Modify the main vault card to remove direct centering */
+.vault-card {
+  /* This rule should now have display: flex; but NOT justify-content or align-items. */
+  display: flex; 
+  position: relative; /* This is crucial */
+}
+
+/* 2. Add a new rule for the content wrapper to handle centering */
+.vault-card-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 3. Add z-index on hover to fix the layering issue */
+.vault-card:hover {
+  z-index: 2; /* Lifts the card on top of its siblings */
+}
+
+/* 4. Update the position and z-index of the dropdown itself */
+.vault-options-dropdown {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 3; /* Ensures the menu appears on top of the card content */
+}
+
+/* --- NEW & REVISED: Definitive Vault Options & Actions --- */
+
+/* This is the main container for the options menu in the top-right corner */
+.vault-options-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  z-index: 5; /* Ensures it's on top of the card content */
+}
+
+/* This container holds the Edit/Delete buttons when they appear */
+.vault-actions-revealed {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f8f9fa; /* Matches card background */
+  padding: 4px 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds a subtle shadow */
+  margin-right: 0.5rem; /* Space between actions and the dots */
+}
+
+/* The three-dots trigger button */
+.vault-options-btn {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  line-height: 1; /* Prevents extra spacing */
+}
+
+.vault-options-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: #343a40; /* Black color */
+}
+
+/* General style for Edit/Delete buttons */
+.vault-action-btn {
+  background: none; border: none; padding: 0.25rem; color: #343a40;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+.vault-action-btn.delete {
+  color: #dc3545;
+}
+.action-divider {
+  color: #dee2e6;
+}
+
+/* --- MOBILE RESPONSIVENESS ADJUSTMENTS --- */
+@media (max-width: 767px) {
+  /* This ensures the mobile card has the main content on the left and the options on the right */
+  .vault-card {
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  /* On mobile, the content wrapper should not take up the full width */
+  .vault-card-content {
+    flex-direction: row;
+    gap: 15px;
+    width: auto; /* Let it shrink to fit content */
+  }
+  
+  /* On mobile, the options container is also part of the flex layout */
+  .vault-options-container {
+    position: static; /* Remove absolute positioning */
+  }
+}
+
+
+/* This new class makes ONLY the list of items scrollable */
+.identifier-dropdown-scroll-container {
+  max-height: 220px; /* Adjust as needed */
+  overflow-y: auto;
+}
+
+/* We can remove the overflow from the parent menu now if you like */
+.identifier-dropdown-menu {
+  overflow-y: initial; /* Or just remove the overflow property from this rule */
+}

@@ -58,7 +58,7 @@ function App() {
                 <>
                   <li className="nav-item">
                     <Link to="/dashboard" className="nav-link">
-                      Dashboard
+                      Vaults
                     </Link>
                   </li>
                   <li className="nav-item">

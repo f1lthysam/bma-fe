@@ -1,0 +1,8 @@
+<!-- src/assets/icons/three-dots-vertical.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 10" shape-rendering="crispEdges">
+  <rect fill="currentColor" x="0" y="0" width="2" height="2" />
+  <rect fill="currentColor" x="0" y="4" width="2" height="2" />
+  <rect fill="currentColor" x="0" y="8" width="2" height="2" />
+</svg>
+
+  
